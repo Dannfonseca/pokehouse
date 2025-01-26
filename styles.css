@@ -1,0 +1,578 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #2d3a9e, #FF0000);
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    position: relative;
+}
+
+/* Menu Hambúrguer */
+.menu-icon {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0; /* Sempre visível no desktop */
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    padding-top: 60px;
+    z-index: 999;
+    transition: none; /* Remover transição no desktop */
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.menu ul li a:hover {
+    color: #007bff;
+}
+
+/* Botão de histórico */
+#historyButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 8px 15px;
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1000; /* Garantir que fique acima de outros elementos */
+}
+
+#historyButton:hover {
+    background-color: #5a6268;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+#pokemonSelection, .pokemon-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.pokemon-item {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pokemon-item span {
+    font-weight: bold;
+}
+
+.pokemon-item .buttons {
+    display: flex;
+    gap: 0; /* Botões colados */
+}
+
+.pokemon-item button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pokemon-item button:hover {
+    background-color: #0056b3;
+}
+
+#trainerInput {
+    margin-top: 20px;
+}
+
+#trainerInput input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 60%;
+    margin-right: 10px;
+}
+
+#trainerInput button {
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#trainerInput button:hover {
+    background-color: #218838;
+}
+
+#selectedPokemons {
+    margin-top: 20px;
+}
+
+#pokemonList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#pokemonList li {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;    
+}
+
+#pokemonList li .trainer-name {
+    color: red;
+    font-weight: bold;
+}
+
+#pokemonList li span {
+    font-weight: bold;
+    color: #000;
+}
+
+#pokemonList li .pokemon-names {
+    color: #666;
+    font-weight: normal;
+}
+
+#pokemonList li .actions {
+    display: flex;
+    gap: 5px;
+}
+
+#pokemonList li .actions button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+}
+
+#pokemonList li .actions button:hover {
+    background-color: #c82333;
+}
+
+.available {
+    color: green;
+}
+
+.unavailable {
+    color: red;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.close:hover {
+    color: #000;
+}
+
+#historyList {
+    margin-top: 20px;
+}
+
+.history-item {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #999; /* Linha divisória mais forte */
+}
+
+.history-item:last-child {
+    border-bottom: none; /* Remove o traçado do último item */
+}
+
+/* Estilo para o nome do treinador (vermelho e negrito) */
+.history-item .trainer-name {
+    color: red;
+    font-weight: bold;
+}
+
+/* Estilo para a data e hora (azul e negrito) */
+.history-item .trainer-date {
+    color: blue;
+    font-weight: bold;
+}
+
+/* Estilo para Pokémons devolvidos (verde e negrito) */
+.history-item .pokemons-returned {
+    color: green;
+    font-weight: bold;
+}
+
+/* Estilo para Pokémons em uso (roxo e negrito) */
+.history-item .pokemons-using {
+    color: purple;
+    font-weight: bold;
+}
+
+/* Estilo para Pokémons selecionados temporariamente */
+.selected {
+    background-color: #ffcccc;
+    border-color: #ff6666;
+}
+
+/* Botões dentro do modal de devolução parcial */
+#partialReturnModal .pokemon-item {
+    display: flex;
+    justify-content: space-between; /* Espaço entre o nome e os botões */
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+}
+
+#partialReturnModal .pokemon-item .buttons {
+    display: flex;
+    gap: 5px; /* Espaçamento mínimo entre os botões */
+}
+
+#partialReturnModal .pokemon-item button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap; /* Evita que o texto dos botões quebre */
+}
+
+#partialReturnModal .pokemon-item button:hover {
+    background-color: #0056b3;
+}
+
+/* Botão "Devolver Selecionados" */
+.confirm-button-container {
+    display: flex;
+    justify-content: center; /* Centraliza o botão */
+    margin-top: 20px;
+}
+
+#partialReturnModal .confirm-button {
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: auto; /* Largura automática */
+}
+
+#partialReturnModal .confirm-button:hover {
+    background-color: #218838;
+}
+
+#partialReturnModal .pokemon-item span {
+    flex-grow: 1; /* Ocupa o espaço disponível */
+    margin-right: 20px; /* Espaçamento entre o nome e os botões */
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Estilo da tela inicial */
+.initial-screen {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.initial-screen h1 {
+    color: #2d3a9e;
+    margin-bottom: 20px;
+}
+
+.initial-screen p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.initial-screen ol {
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.initial-screen ol li {
+    margin-bottom: 10px;
+}
+
+.menu-icon-example {
+    font-size: 24px;
+    cursor: pointer;
+    color: #2d3a9e;
+}
+
+/* Estilo para o carrinho (inicialmente oculto) */
+#pokemonCart {
+    display: none; /* Ocultar o carrinho inicialmente */
+}
+
+
+/* Estilo para a seção "Pokémons em Uso" na tela inicial */
+#initialPokemonsInUse {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+#initialPokemonsInUse h2 {
+    color: #2d3a9e;
+    margin-bottom: 10px;
+}
+
+#initialPokemonsInUse ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#initialPokemonsInUse ul li {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#initialPokemonsInUse ul li .trainer-name {
+    color: red;
+    font-weight: bold;
+}
+
+#initialPokemonsInUse ul li .trainer-date {
+    color: blue;
+    font-weight: bold;
+}
+
+#initialPokemonsInUse ul li .pokemon-names {
+    color: #666;
+    font-weight: normal;
+}
+
+.instruction-box {
+    margin-bottom: 20px;
+}
+
+.instruction-box h1 {
+    color: #2d3a9e;
+    margin-bottom: 20px;
+}
+
+.instruction-box p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.instruction-box ol {
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.instruction-box ol li {
+    margin-bottom: 10px;
+}
+
+.menu-icon-example {
+    font-size: 24px;
+    cursor: pointer;
+    color: #2d3a9e;
+}
+
+/* Caixa de Pokémons em Uso */
+.pokemons-in-use-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.pokemons-in-use-box h2 {
+    color: #2d3a9e;
+    margin-bottom: 10px;
+}
+
+.pokemons-in-use-box ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.pokemons-in-use-box ul li {
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.pokemons-in-use-box ul li .trainer-name {
+    color: red;
+    font-weight: bold;
+}
+
+.pokemons-in-use-box ul li .trainer-date {
+    color: blue;
+    font-weight: bold;
+}
+
+.pokemons-in-use-box ul li .pokemon-names {
+    color: #666;
+    font-weight: normal;
+}
+
+.pokemons-in-use-box ul li .actions {
+    display: flex;
+    gap: 5px;
+}
+
+.pokemons-in-use-box ul li .actions button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.pokemons-in-use-box ul li .actions button:hover {
+    background-color: #c82333;
+}
+
+/* Estilos para o menu no modo mobile */
+/* Estilos para o menu no modo mobile */
+@media (max-width: 768px) {
+    .menu {
+        left: -250px; /* Esconder o menu inicialmente */
+        transition: left 0.3s ease; /* Adicionar transição suave */
+    }
+
+    .menu.active {
+        left: 0; /* Mostrar o menu quando estiver ativo */
+    }
+
+    /* Overlay para fechar o menu ao clicar fora */
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998; /* Abaixo do menu, mas acima do conteúdo */
+    }
+
+    .menu-overlay.active {
+        display: block; /* Mostrar o overlay quando o menu estiver ativo */
+    }
+}
+
+/* Estilos para o menu no modo desktop */
+@media (min-width: 769px) {
+    .menu {
+        left: 0; /* Menu sempre visível */
+        transition: none; /* Remover transição */
+    }
+
+    .menu-icon {
+        display: none; /* Ocultar o ícone do menu no desktop */
+    }
+}

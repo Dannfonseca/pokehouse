@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Pokémons</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Botão de histórico fixo no canto superior direito -->
+    <button id="historyButton" onclick="openHistoryModal()">Histórico</button>
+
+    <!-- Overlay para fechar o menu no modo mobile -->
+    <div id="menuOverlay" class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- Menu Hambúrguer -->
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    <div class="menu" id="menu">
+        <ul>
+            <li><a href="#" onclick="loadClan('psycraft'); toggleMenu()">Psycraft</a></li>
+            <li><a href="#" onclick="loadClan('ironhard'); toggleMenu()">Ironhard</a></li>
+            <li><a href="#" onclick="loadClan('seavell'); toggleMenu()">Seavell</a></li>
+            <li><a href="#" onclick="loadClan('malefic'); toggleMenu()">Malefic</a></li>
+            <li><a href="#" onclick="loadClan('volcanic'); toggleMenu()">Volcanic</a></li>
+            <li><a href="#" onclick="loadClan('raibolt'); toggleMenu()">Raibolt</a></li>
+            <li><a href="#" onclick="loadClan('gardestrike'); toggleMenu()">Gardestrike</a></li>
+            <li><a href="#" onclick="loadClan('orebound'); toggleMenu()">Orebound</a></li>
+            <li><a href="#" onclick="loadClan('naturia'); toggleMenu()">Naturia</a></li>
+            <li><a href="#" onclick="loadClan('wingeon'); toggleMenu()">Wingeon</a></li>
+        </ul>
+    </div>
+
+    <!-- Tela Inicial -->
+    <div id="initialScreen" class="initial-screen">
+        <!-- Caixa de instruções -->
+        <div class="instruction-box">
+            <h1>Bem-vindo ao Carrinho de Pokémons!</h1>
+            <p>Para começar, siga os passos abaixo:</p>
+            <ol>
+                <li>Clique no ícone do menu no canto superior esquerdo (<span class="menu-icon-example">&#9776;</span>).</li>
+                <li>Selecione um clã para visualizar os Pokémons disponíveis.</li>
+                <li>Adicione os Pokémons ao carrinho clicando no botão <strong>+</strong>.</li>
+                <li>Insira seu nome e clique em <strong>Confirmar</strong> para finalizar.</li>
+                <li>Para devolver Pokémons, utilize os botões <strong>Devolver Tudo</strong> ou <strong>Devolver Parcialmente</strong>.</li>
+            </ol>
+            <p>Divirta-se gerenciando seus Pokémons! 😊</p>
+        </div>
+
+        <!-- Caixa de Pokémons em Uso -->
+        <div class="pokemons-in-use-box">
+            <h2>Pokémons em Uso</h2>
+            <ul id="initialPokemonList"></ul>
+        </div>
+    </div>
+
+    <!-- Carrinho de Pokémons (inicialmente oculto) -->
+    <div id="pokemonCart" class="container" style="display: none;">
+        <h1>Carrinho de Pokémons</h1>
+        <div id="pokemonSelection">
+            <!-- Lista de Pokémons disponíveis (será carregada dinamicamente) -->
+        </div>
+        <div id="trainerInput">
+            <input type="text" id="trainerName" placeholder="Seu nome" required>
+            <button onclick="saveSelection()">Confirmar</button>
+        </div>
+        <div id="selectedPokemons">
+            <h2>Pokémons em Uso</h2>
+            <ul id="pokemonList"></ul>
+        </div>
+    </div>
+
+    <!-- Modal para devolução parcial -->
+    <div id="partialReturnModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Devolução Parcial</h2>
+            <div id="partialReturnList" class="pokemon-selection"></div>
+            <div class="confirm-button-container">
+                <button class="confirm-button" onclick="confirmPartialReturn()">Devolver Selecionados</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para histórico -->
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeHistoryModal()">&times;</span>
+            <h2>Histórico</h2>
+            <div id="historyList"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
